@@ -36,6 +36,36 @@
           </p>
         </div>
       </aside>
+      <section class="stack">
+        <div class="stack panel card" id="webEditors">
+          <div class="row">
+            <h2>HTML / CSS / JS</h2>
+            <div class="row">
+              <button class="btn ok" id="runWeb">Run</button>
+              <button class="btn secondary" id="openPreview">Open preview in a new window</button>
+            </div>
+          </div>
+          <div class="tabs" id="webTabs" role="tablist" aria-label="Web Editors">
+            <button class="tab active" role="tab" aria-selected="true" tabindex="0" data-pane="html">HTML</button>
+            <button class="tab" role="tab" aria-selected="false" tabindex="-1" data-pane="css">CSS</button>
+            <button class="tab" role="tab" aria-selected="false" tabindex="-1" data-pane="js">JS</button>
+          </div>
+          <div class="editor-wrap" data-pane="html">
+            <div class="editor" id="ed_html"></div>
+          </div>
+          <div class="editor-wrap" data-pane="css" hidden>
+            <div class="editor" id="ed_css"></div>
+          </div>
+          <div class="editor-wrap" data-pane="js" hidden>
+            <div class="editor" id="ed_js"></div>
+          </div>
+          <div class="stack">
+            <h3>Preview</h3>
+            <iframe class="preview" id="preview"
+              sandbox="allow-scripts allow-same-origin allow-modals allow-forms"></iframe>
+          </div>
+        </div>
+      </section>
     </main>
   </body>
 

@@ -22,7 +22,7 @@
       </div>
     </header>
     <main>
-      <aside class="card panel stack">
+      <aside class="stack panel card">
         <h2>Task / Assignment</h2>
         <textarea class="text" id="assignment" placeholder="Write the task description here..."></textarea>
         <div class="stack">
@@ -66,6 +66,19 @@
           </div>
         </div>
       </section>
+      <aside class="stack panel card">
+        <h2>Output</h2>
+        <div class="output" id="output" aria-live="polite"></div>
+        <div class="row">
+          <button class="btn warn" id="runTests">Run with tests</button>
+          <button class="btn secondary" id="clearOutput">Clear output</button>
+        </div>
+        <h3>Notes</h3>
+        <ul class="muted">
+          <li>Everythong runs inside the browser in a sandbox</li>
+          <li>You can save the work as a JSON file and restore it</li>
+        </ul>
+      </aside>
     </main>
   </body>
 

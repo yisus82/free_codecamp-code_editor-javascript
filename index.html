@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Code Canvas</title>
     <link rel="icon" type="image/x-icon" href="./img/favicon.ico">
-    <link rel="stylesheet" href="./styles/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/ace-builds@1.44.0/css/ace.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/main.css">
   </head>
 
   <body>
@@ -17,7 +18,7 @@
           <div class="title">Code Canvas</div>
         </div>
         <div class="row">
-          <button class="btn secondary" id="saveBtn" title="Save work locally"><span>Save</span></button>
+          <button class="btn" id="saveBtn" title="Save work locally"><span>Save</span></button>
           <button class="btn secondary" id="loadBtn" title="Load work from file"><span>Load</span></button>
           <input type="file" id="fileInput" accept="application/json" hidden>
         </div>
@@ -32,34 +33,29 @@
           <textarea class="text" id="testArea"
             placeholder="Write simple tests to append after the students' code to chek the solution..."></textarea>
         </div>
-        <div class="muted">
-          <p>Tip: <span class="kbd">Ctrl</span> + <span class="kbd">S</span> to save, <span class="kbd">Ctrl</span> +
-            <span class="kbd">Enter</span> to run
-          </p>
-        </div>
       </aside>
       <section class="stack">
         <div class="stack panel card" id="webEditors">
           <div class="row">
             <h2>HTML / CSS / JS</h2>
             <div class="row">
-              <button class="btn ok" id="runWeb">Run</button>
-              <button class="btn secondary" id="openPreview">Open preview in a new window</button>
+              <button class="btn ok" id="runWebBtn">Run</button>
+              <button class="btn secondary" id="openPreviewBtn">Open preview in a new window</button>
             </div>
           </div>
           <div class="tabs" id="webTabs" role="tablist" aria-label="Web Editors">
-            <button class="tab active" role="tab" aria-selected="true" tabindex="0" data-pane="html">HTML</button>
-            <button class="tab" role="tab" aria-selected="false" tabindex="-1" data-pane="css">CSS</button>
-            <button class="tab" role="tab" aria-selected="false" tabindex="-1" data-pane="js">JS</button>
+            <button class="tab active" role="tab" aria-selected="true" tabindex="0" data-editor="html">HTML</button>
+            <button class="tab" role="tab" aria-selected="false" tabindex="-1" data-editor="css">CSS</button>
+            <button class="tab" role="tab" aria-selected="false" tabindex="-1" data-editor="js">JS</button>
           </div>
-          <div class="editor-wrap" data-pane="html">
-            <div class="editor" id="ed_html"></div>
+          <div class="editor-pane" data-editor="html">
+            <div class="editor" id="htmlEditor"></div>
           </div>
-          <div class="editor-wrap" data-pane="css" hidden>
-            <div class="editor" id="ed_css"></div>
+          <div class="editor-pane" data-editor="css" hidden>
+            <div class="editor" id="cssEditor"></div>
           </div>
-          <div class="editor-wrap" data-pane="js" hidden>
-            <div class="editor" id="ed_js"></div>
+          <div class="editor-pane" data-editor="js" hidden>
+            <div class="editor" id="jsEditor"></div>
           </div>
           <div class="stack">
             <h3>Preview</h3>
@@ -72,19 +68,23 @@
         <h2>Output</h2>
         <div class="output" id="output" aria-live="polite"></div>
         <div class="row">
-          <button class="btn warn" id="runTests">Run with tests</button>
-          <button class="btn secondary" id="clearOutput">Clear output</button>
+          <button class="btn warn" id="runTestsBtn">Run with tests</button>
+          <button class="btn err" id="clearOutputBtn">Clear output</button>
         </div>
         <h3>Notes</h3>
         <ul class="muted">
           <li>Everything runs inside the browser in a sandbox</li>
           <li>You can save the work as a JSON file and restore it</li>
+          <li><span class="kbd">Ctrl</span> + <span class="kbd">S</span> to save</li>
+          <li><span class="kbd">Ctrl</span> + <span class="kbd">Enter</span> to run</li>
         </ul>
       </aside>
       <footer>
         &copy; 2026 All rights reserved.
       </footer>
     </main>
+    <script src="https://cdn.jsdelivr.net/npm/ace-builds@1.44.0/src-min-noconflict/ace.min.js"></script>
+    <script src="./scripts/main.js"></script>
   </body>
 
 </html>

@@ -9,6 +9,7 @@
   --ok: #22c55e;
   --warn: #eab308;
   --err: #ef4444;
+  --info: #7dd3fc;
   --radius: 18px;
   --gap: 14px;
 }
@@ -86,9 +87,8 @@ main {
   padding: 16px;
 }
 
-h2,
-h3 {
-  margin: 0 0 12px;
+ul {
+  margin: 0;
 }
 
 .muted {
@@ -120,6 +120,7 @@ h3 {
   border-radius: 12px;
   cursor: pointer;
   box-shadow: 0 10px 24px rgba(96, 165, 250, .35);
+  min-width: 100px;
 }
 
 .btn.secondary {
@@ -181,7 +182,7 @@ textarea.text {
   color: #00FF00 !important;
 }
 
-.editor-wrap {
+.editor-pane {
   position: relative;
   border: 1px solid rgba(255, 255, 255, .12);
   border-radius: 14px;
@@ -192,7 +193,7 @@ textarea.text {
 
 .editor {
   inline-size: 100%;
-  block-size: 380px
+  block-size: 380px;
 }
 
 iframe.preview {
@@ -203,7 +204,7 @@ iframe.preview {
   background: white;
 }
 
-.out {
+.output {
   background: #0a0e1a;
   border: 1px solid rgba(255, 255, 255, .12);
   border-radius: 12px;
@@ -239,4 +240,28 @@ footer {
 label {
   font-size: 13px;
   color: var(--muted);
+}
+
+.confirm-dialog {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, .5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.confirm-dialog-content {
+  background: var(--panel);
+  border-radius: var(--radius);
+  padding: 20px;
+  max-inline-size: 400px;
+  width: 100%;
+}
+
+.confirm-dialog-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
 }

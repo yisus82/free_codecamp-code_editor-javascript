@@ -251,3 +251,44 @@ document.addEventListener('DOMContentLoaded', () => {
     runWeb(testsArea.value.trim() !== '');
   }
 });
+
+const downloadStatusAsJSONFile = () => {
+  const status = generateStatusObject();
+  const blob = new Blob([JSON.stringify(status, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'code-canvas-project.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  log('Project saved to JSON file.');
+};
+
+downloadBtn.onclick = () => downloadStatusAsJSONFile();
+
+loadBtn.onclick = () => fileInput.click();
+
+fileInput.onchange = () => {
+  const file = fileInput.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = event => {
+      try {
+        const status = JSON.parse(event.target.result);
+        htmlEditor.setValue(status.html || '', -1);
+        cssEditor.setValue(status.css || '', -1);
+        jsEditor.setValue(status.js || '', -1);
+        testsArea.value = status.tests || '';
+        assignmentArea.value = status.assignment || '';
+        log('Project loaded from JSON file.');
+        runWeb(testsArea.value.trim() !== '');
+      } catch (error) {
+        log('Error loading project from JSON file: ' + error.message, 'error');
+        return;
+      }
+    };
+    reader.readAsText(file);
+  }
+};

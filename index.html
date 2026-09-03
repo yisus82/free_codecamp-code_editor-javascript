@@ -18,8 +18,11 @@
           <div class="title">Code Canvas</div>
         </div>
         <div class="row">
-          <button class="btn" id="saveBtn" title="Save work locally"><span>Save</span></button>
-          <button class="btn secondary" id="loadBtn" title="Load work from file"><span>Load</span></button>
+          <button class="btn ok" id="saveBtn" title="Save work in the browser"><span>Save in browser</span></button>
+          <button class="btn" id="downloadBtn" title="Download work in a JSON file"><span>Download to JSON
+              file</span></button>
+          <button class="btn secondary" id="loadBtn" title="Load work from a JSON file"><span>Load from JSON
+              file</span></button>
           <input type="file" id="fileInput" accept="application/json" hidden>
         </div>
       </div>
@@ -27,7 +30,7 @@
     <main>
       <aside class="stack panel card">
         <h2>Task / Assignment</h2>
-        <textarea class="text" id="assignment" placeholder="Write the task description here..."></textarea>
+        <textarea class="text" id="assignmentArea" placeholder="Write the task description here..."></textarea>
         <div class="stack">
           <label for="testArea">Validation tests (JavaScript only - optional)</label>
           <textarea class="text" id="testsArea"
@@ -40,7 +43,7 @@
             <h2>HTML / CSS / JS</h2>
             <div class="row">
               <button class="btn ok" id="runWebBtn">Run</button>
-              <button class="btn secondary" id="openPreviewBtn">Open preview in a new window</button>
+              <button class="btn secondary" id="openPreviewBtn">Open preview in a new tab</button>
             </div>
           </div>
           <div class="tabs" id="webTabs" role="tablist" aria-label="Web Editors">
@@ -74,7 +77,8 @@
         <h3>Notes</h3>
         <ul class="muted">
           <li>Everything runs inside the browser in a sandbox</li>
-          <li>You can save the work as a JSON file and restore it</li>
+          <li>You can save your work in the browser</li>
+          <li>You can download your work as a JSON file and restore it later</li>
           <li><span class="kbd">Ctrl</span> + <span class="kbd">S</span> to save</li>
           <li><span class="kbd">Ctrl</span> + <span class="kbd">Enter</span> to run</li>
         </ul>

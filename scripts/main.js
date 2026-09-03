@@ -59,7 +59,7 @@ function buildPreviewSrcdoc(withTests = false) {
 \t<head>
 \t\t<meta charset="UTF-8">
 \t\t<meta name="viewport" content="width=device-width, initial-scale=1.0">
-\t\t<title>Web Preview</title>${css ? `\n\t\t<style>\n\t\t\t${css}\n\t\t</style>` : ''}
+\t\t<title>Code Canvas | Web Preview</title>${css ? `\n\t\t<style>\n\t\t\t${css}\n\t\t</style>` : ''}
 \t</head>
 \t<body>${html ? `\n\t\t${html}` : ''}${js ? `\n\t\t<script>\n\t\t\t${js}${withTests && tests ? `\n\n\t\t\t/* Tests */\n\t\t\t${tests}` : ''}\n\t\t</script>` : ''}
 \t</body>
@@ -204,3 +204,50 @@ const showConfirmDialog = (message, onConfirm) => {
 const clearOutput = () => output.innerHTML = '';
 
 clearOutputBtn.onclick = () => showConfirmDialog('Are you sure you want to clear the output?', clearOutput);
+
+const generateStatusObject = () => {
+  return {
+    html: htmlEditor.getValue(),
+    css: cssEditor.getValue(),
+    js: jsEditor.getValue(),
+    tests: testsArea.value,
+    assignment: assignmentArea.value,
+  };
+};
+
+const LOCAL_STORAGE_KEY = 'Code-Canvas-Status';
+
+const saveStatusToLocalStorage = () => {
+  const status = generateStatusObject();
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(status));
+  log('Project saved to local storage.');
+};
+
+saveBtn.onclick = () => saveStatusToLocalStorage();
+
+const loadStatusFromLocalStorage = () => {
+  const statusJSON = localStorage.getItem(LOCAL_STORAGE_KEY);
+  if (statusJSON) {
+    try {
+      const status = JSON.parse(statusJSON);
+      htmlEditor.setValue(status.html || '', -1);
+      cssEditor.setValue(status.css || '', -1);
+      jsEditor.setValue(status.js || '', -1);
+      testsArea.value = status.tests || '';
+      assignmentArea.value = status.assignment || '';
+      log('Project loaded from local storage.');
+    } catch (error) {
+      log('Error loading project from local storage: ' + error.message, 'error');
+      return false;
+    }
+  } else {
+    log('No saved project found in local storage.', 'warning');
+  }
+  return true;
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (loadStatusFromLocalStorage()) {
+    runWeb(testsArea.value.trim() !== '');
+  }
+});

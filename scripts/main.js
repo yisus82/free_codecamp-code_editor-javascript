@@ -48,7 +48,53 @@ const jsEditor = makeEditor('jsEditor', 'ace/mode/javascript');
 
 htmlEditor.focus();
 
-const runWeb = (withTests = false) => { };
+function buildPreviewSrcdoc(withTests = false) {
+  const html = htmlEditor.getValue().replace(/\n/g, '\n\t\t');
+  const css = cssEditor.getValue().replace(/\n/g, '\n\t\t\t');
+  const js = jsEditor.getValue().replace(/\n/g, '\n\t\t\t');
+  const tests = testsArea.value.replace(/\n/g, '\n\t\t\t');
+
+  return `<!DOCTYPE html>
+<html>
+\t<head>
+\t\t<meta charset="UTF-8">
+\t\t<meta name="viewport" content="width=device-width, initial-scale=1.0">
+\t\t<title>Web Preview</title>${css ? `\n\t\t<style>\n\t\t\t${css}\n\t\t</style>` : ''}
+\t</head>
+\t<body>${html ? `\n\t\t${html}` : ''}${js ? `\n\t\t<script>\n\t\t\t${js}${withTests && tests ? `\n\n\t\t\t/* Tests */\n\t\t\t${tests}` : ''}\n\t\t</script>` : ''}
+\t</body>
+</html>`;
+}
+
+const escapeHtml = unsafe => unsafe
+  .replace(/&/g, "&amp;")
+  .replace(/</g, "&lt;")
+  .replace(/>/g, "&gt;")
+  .replace(/"/g, "&quot;")
+  .replace(/'/g, "&#039;");
+
+const log = (message, type = 'info') => {
+  const color = type === 'error' ? 'var(--err)' : type === 'warning' ? 'var(--warn)' : 'var(--info)';
+  const time = new Date().toLocaleTimeString();
+  const line = document.createElement('div');
+  line.innerHTML = `<span style="color: ${color};">[${time}]</span> ${escapeHtml(message)}`;
+  output.appendChild(line);
+  output.scrollTop = output.scrollHeight;
+};
+
+const runWeb = (withTests = false) => {
+  preview.srcdoc = buildPreviewSrcdoc(withTests);
+  log(withTests ? 'Run with tests.' : 'Web preview updated.');
+};
+
+runWebBtn.onclick = () => runWeb(false);
+
+runWithTestsBtn.onclick = () => runWeb(true);
+
+openPreviewBtn.onclick = () => {
+  const previewWindow = window.open('', '_blank');
+  previewWindow.document.write(buildPreviewSrcdoc());
+};
 
 const saveProject = () => { };
 

@@ -174,3 +174,33 @@ webTabs.onkeydown = event => {
     setActivePreviousEditor();
   }
 };
+
+const showConfirmDialog = (message, onConfirm) => {
+  const dialog = document.createElement('div');
+  dialog.classList.add('confirm-dialog');
+  dialog.innerHTML = `
+    <div class="confirm-dialog-content">
+      <p>${message}</p>
+      <div class="confirm-dialog-buttons">
+        <button class="btn ok" id="confirm-yes">Yes</button>
+        <button class="btn err" id="confirm-no">No</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(dialog);
+
+  const yesButton = dialog.querySelector('#confirm-yes');
+  yesButton.onclick = () => {
+    onConfirm();
+    document.body.removeChild(dialog);
+  };
+
+  const noButton = dialog.querySelector('#confirm-no');
+  noButton.onclick = () => {
+    document.body.removeChild(dialog);
+  };
+};
+
+const clearOutput = () => output.innerHTML = '';
+
+clearOutputBtn.onclick = () => showConfirmDialog('Are you sure you want to clear the output?', clearOutput);
